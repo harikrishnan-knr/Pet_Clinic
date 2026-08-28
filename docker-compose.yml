@@ -61,16 +61,6 @@ services:
     networks:
       - devops
 
-  tomcat:
-    image: tomcat:9
-    container_name: tomcat
-    ports:
-      - "8082:8080"
-    volumes:
-      - tomcat_webapps:/usr/local/tomcat/webapps
-    networks:
-      - devops
-
 networks:
   devops:
     driver: bridge
@@ -81,4 +71,3 @@ volumes:
   sonarqube_logs:
   sonarqube_extensions:
   nexus_data:
-  tomcat_webapps:
