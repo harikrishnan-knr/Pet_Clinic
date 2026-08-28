@@ -10,6 +10,6 @@ FROM tomcat:9.0
 
 COPY --from=builder /Maven_project/target/*.war /usr/local/tomcat/webapps/war.war
 
-EXPOSE 8585
+EXPOSE 8080
 
 CMD ["catalina.sh", "run"]
