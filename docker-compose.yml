@@ -2,20 +2,6 @@ version: "3.8"
 
 services:
 
-  jenkins:
-    image: jenkins/jenkins:lts
-    container_name: jenkins
-    privileged: true
-    user: root
-    ports:
-      - "8080:8080"
-      - "50000:50000"
-    volumes:
-      - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - devops
-
   sonarqube:
     image: sonarqube:lts-community
     container_name: sonarqube
@@ -45,7 +31,6 @@ networks:
     driver: bridge
 
 volumes:
-  jenkins_home:
   sonarqube_data:
   sonarqube_logs:
   sonarqube_extensions:
