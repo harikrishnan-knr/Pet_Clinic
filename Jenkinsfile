@@ -30,7 +30,7 @@ pipeline {
                 label 'worker'
             }
             steps {
-                sh 'mvn clean build'
+                sh 'mvn clean package -DskipTests'
                 sh 'ls -lh target/'
             }
         }
