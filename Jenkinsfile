@@ -30,10 +30,8 @@ pipeline {
                 label 'worker'
             }
             steps {
-                sh 'docker compose -f mysql.yml down || true'
                 sh 'mvn clean package -DskipTests'
                 sh 'ls -lh target/'
-                sh 'docker compose -f mysql.yml up -d'
             }
         }
 
