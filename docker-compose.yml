@@ -1,14 +1,12 @@
-version: "3.8"
-
 services:
-
   sonarqube:
-    image: sonarqube:lts-community
+    image: sonarqube:community
     container_name: sonarqube
+    restart: unless-stopped
     ports:
       - "9000:9000"
     environment:
-      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
     volumes:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_logs:/opt/sonarqube/logs
@@ -19,6 +17,7 @@ services:
   nexus:
     image: sonatype/nexus3:latest
     container_name: nexus
+    restart: unless-stopped
     ports:
       - "8081:8081"
     volumes:
@@ -26,12 +25,12 @@ services:
     networks:
       - devops
 
-networks:
-  devops:
-    driver: bridge
-
 volumes:
   sonarqube_data:
   sonarqube_logs:
   sonarqube_extensions:
   nexus_data:
+
+networks:
+  devops:
+    driver: bridge
