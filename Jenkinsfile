@@ -29,7 +29,7 @@ pipeline {
                     nexusVersion: 'nexus3',
                     protocol: 'http',
                     nexusUrl: '3.110.60.91:8081',
-                    credentialsId: 'nexus-credentials',
+                    credentialsId: 'nexus',
                     repository: 'maven-snapshots',
                     groupId: 'org.springframework.samples',
                     artifactId: 'spring-petclinic',
