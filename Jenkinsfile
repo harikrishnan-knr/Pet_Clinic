@@ -1,4 +1,6 @@
 pipeline {
+    agent none
+
     stages {
 
         stage('Checkout') {
@@ -7,7 +9,7 @@ pipeline {
             }
             steps {
                 git branch: 'main',
-                url: 'https://github.com/harikrishnan-knr/Pet_Clinic.git'
+                    url: 'https://github.com/harikrishnan-knr/Pet_Clinic.git'
             }
         }
 
@@ -16,8 +18,7 @@ pipeline {
                 label 'worker'
             }
             steps {
-                sh 'mvn clean'
-                sh 'mvn build'
+                sh 'mvn clean package -DskipTests'
             }
         }
 
@@ -33,10 +34,10 @@ pipeline {
                     credentialsId: 'nexus',
                     repository: 'maven-snapshots',
                     groupId: 'org.springframework.samples',
-                    artifactId: 'spring-petclinic',
                     version: '4.0.0-SNAPSHOT',
                     artifacts: [
                         [
+                            artifactId: 'spring-petclinic',
                             classifier: '',
                             file: 'target/spring-petclinic-4.0.0-SNAPSHOT.jar',
                             type: 'jar'
@@ -51,6 +52,7 @@ pipeline {
         success {
             echo 'Build and Nexus upload successful!'
         }
+
         failure {
             echo 'Build or Nexus upload failed.'
         }
