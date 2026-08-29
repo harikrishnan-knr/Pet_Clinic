@@ -16,7 +16,8 @@ pipeline {
                 label 'worker'
             }
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn clean'
+                sh 'mvn build'
             }
         }
 
