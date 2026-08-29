@@ -13,12 +13,27 @@ pipeline {
             }
         }
 
+        stage('Check Java') {
+            agent {
+                label 'worker'
+            }
+            steps {
+                sh '''
+                    java -version
+                    mvn -version
+                '''
+            }
+        }
+
         stage('Build') {
             agent {
                 label 'worker'
             }
             steps {
+                sh 'docker compose -f mysql.yml down || true'
                 sh 'mvn clean package -DskipTests'
+                sh 'ls -lh target/'
+                sh 'docker compose -f mysql.yml up -d'
             }
         }
 
@@ -50,9 +65,8 @@ pipeline {
 
     post {
         success {
-            echo 'Build and Nexus upload successful!'
+            echo 'PetClinic built and uploaded to Nexus successfully!'
         }
-
         failure {
             echo 'Build or Nexus upload failed.'
         }
